@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work & Travel USA Experience</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #0f1a2d, #1d2b40);
+      color: #fff;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+    
+    /* Navigation */
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(15px);
+      padding: 1.2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease;
+    }
+    
+    .logo {
+      font-size: 2.1rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, #ff7d7d, #5ed1c9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      font-size: 1.8rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    
+    .nav-link {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      font-size: 1.1rem;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #ff7d7d, #5ed1c9);
+      transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    
+    .nav-link:hover {
+      color: #fff;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.5;
+      z-index: -1;
+      transform: translateZ(0);
+    }
+    
+    .hero-content {
+      text-align: center;
+      max-width: 900px;
+      padding: 0 2rem;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeUp 1.2s ease forwards 0.5s;
+    }
+    
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .hero h1 {
+      font-size: 4.5rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #ff7d7d, #5ed1c9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      line-height: 1.1;
+    }
+    
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 2.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+    }
+    
+    .scroll-down {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      animation: bounce 2s infinite;
+    }
+    
+    .scroll-down i {
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+      40% {transform: translateX(-50%) translateY(-20px);}
+      60% {transform: translateX(-50%) translateY(-10px);}
+    }
+    
+    /* Experience Section */
+    .experience-section {
+      min-height: 100vh;
+      padding: 6rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .section-content {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5rem;
+      align-items: center;
+    }
+    
+    .section-image {
+      position: relative;
+      border-radius: 25px;
+      overflow: hidden;
+      transform: translateX(-100px);
+      opacity: 0;
+      transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      height: 600px;
+    }
+    
+    .section-image.visible {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .section-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    
+    .section-image:hover img {
+      transform: scale(1.05);
+    }
+    
+    .section-text {
+      transform: translateX(100px);
+      opacity: 0;
+      transition: all 1s cubic-bezier(0.23, 1, 0.32, 1) 0.2s;
+    }
+    
+    .section-text.visible {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .section-text h2 {
+      font-size: 3.2rem;
+      margin-bottom: 2rem;
+      background: linear-gradient(90deg, #ff7d7d, #5ed1c9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+    }
+    
+    .section-text p {
+      font-size: 1.25rem;
+      margin-bottom: 1.8rem;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    
+    .experience-list {
+      list-style: none;
+      margin-top: 2rem;
+    }
+    
+    .experience-list li {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 1.2rem;
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .experience-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #5ed1c9;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+    
+    /* Gallery Section */
+    .gallery-section {
+      padding: 6rem 2rem;
+      position: relative;
+      background: rgba(0, 0, 0, 0.15);
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 4rem;
+      font-size: 3rem;
+      background: linear-gradient(90deg, #ff7d7d, #5ed1c9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      padding-bottom: 1.5rem;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 4px;
+      background: linear-gradient(90deg, #ff7d7d, #5ed1c9);
+      border-radius: 2px;
+    }
+    
+    .gallery-slider {
+      position: relative;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    
+    .gallery-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 25px;
+      height: 600px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    
+    .gallery-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    
+    .gallery-item {
+      flex: 0 0 100%;
+      position: relative;
+      height: 100%;
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      padding: 2rem;
+      color: white;
+      text-align: center;
+      font-size: 1.4rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+    
+    .gallery-item.active .gallery-caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .gallery-controls {
+      display: flex;
+      justify-content: center;
+      margin-top: 2.5rem;
+      gap: 1rem;
+    }
+    
+    .gallery-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .gallery-dot.active {
+      background: #ff7d7d;
+      transform: scale(1.2);
+    }
+    
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      border: none;
+      color: #fff;
+      font-size: 2.2rem;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      opacity: 0.7;
+    }
+    
+    .gallery-nav:hover {
+      background: rgba(0, 0, 0, 0.8);
+      opacity: 1;
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    .gallery-prev {
+      left: 30px;
+    }
+    
+    .gallery-next {
+      right: 30px;
+    }
+    
+    /* Footer */
+    footer {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, #ff7d7d, #5ed1c9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-text {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+    
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    .social-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+      background: linear-gradient(45deg, #ff7d7d, #5ed1c9);
+      transform: translateY(-5px);
+    }
+    
+    .copyright {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1.1rem;
+      margin-top: 2rem;
+    }
+    
+    /* Floating Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .floating-element {
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .section-content {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+      }
+      
+      .section-image {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      
+      .gallery-container {
+        height: 500px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-bar {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem 2rem;
+      }
+      
+      .nav-links {
+        gap: 1.2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero h1 {
+        font-size: 3.2rem;
+      }
+      
+      .hero p {
+        font-size: 1.3rem;
+      }
+      
+      .section-text h2 {
+        font-size: 2.5rem;
+      }
+      
+      .section-title {
+        font-size: 2.5rem;
+      }
+      
+      .gallery-container {
+        height: 400px;
+      }
+      
+      .gallery-nav {
+        width: 50px;
+        height: 50px;
+        font-size: 1.8rem;
+      }
+      
+      .gallery-caption {
+        font-size: 1.2rem;
+        padding: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .section-text h2 {
+        font-size: 2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .experience-list li {
+        font-size: 1rem;
+      }
+      
+      .gallery-container {
+        height: 300px;
+      }
+      
+      .gallery-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav-bar">
+    <a href="index.html" class="logo">
+      <i class="fas fa-passport"></i> Travel USA
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+      <a href="skills.html" class="nav-link"><i class="fas fa-code"></i> Skills</a>
+      <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-usa-flag-waving-in-the-wind-1929-large.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+      <h1>American Dream Journey</h1>
+      <p>My transformative Work & Travel experience in the heart of Tennessee</p>
+    </div>
+    <div class="scroll-down">
+      <i class="fas fa-chevron-down"></i>
+      <span>Scroll to explore</span>
+    </div>
+  </section>
+
+  <section class="experience-section">
+    <div class="section-content">
+      <div class="section-image floating-element">
+        <img src="https://images.unsplash.com/photo-1595278069441-2cf29f8005a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Dollywood Experience">
+      </div>
+      <div class="section-text">
+        <h2>The Magic of Dollywood</h2>
+        <p>Working at Dollywood was more than just a job - it was an immersion into American culture. As an international team member, I helped create unforgettable experiences for visitors from around the world.</p>
+        <ul class="experience-list">
+          <li>Customer service excellence in a high-volume environment</li>
+          <li>Cross-cultural communication with diverse teams</li>
+          <li>Leadership in coordinating daily operations</li>
+          <li>Problem-solving during peak visitor seasons</li>
+          <li>Adapting to American work culture and expectations</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="experience-section">
+    <div class="section-content">
+      <div class="section-text">
+        <h2>Thai Flavors in Tennessee</h2>
+        <p>Bringing authentic Thai culinary traditions to the Smoky Mountains was a journey of cultural exchange. Working at "Siam Spice" restaurant allowed me to share my heritage while learning American hospitality.</p>
+        <ul class="experience-list">
+          <li>Food preparation & service in a traditional setting</li>
+          <li>Cultural ambassadorship through cuisine</li>
+          <li>Inventory management and supply ordering</li>
+          <li>Menu adaptation for American palates</li>
+          <li>Training new staff in authentic techniques</li>
+        </ul>
+      </div>
+      <div class="section-image floating-element">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80" alt="Restaurant Experience">
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-section">
+    <h2 class="section-title">Memorable Moments</h2>
+    <div class="gallery-slider">
+      <button class="gallery-nav gallery-prev"><i class="fas fa-chevron-left"></i></button>
+      <div class="gallery-container">
+        <div class="gallery-track">
+          <div class="gallery-item active">
+            <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Team photo">
+            <div class="gallery-caption">Team celebration at Dollywood</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1554679665-f5537f187268?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80" alt="Restaurant work">
+            <div class="gallery-caption">Preparing traditional Thai dishes</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Cultural exchange">
+            <div class="gallery-caption">Exploring the Great Smoky Mountains</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1521&q=80" alt="Travel experience">
+            <div class="gallery-caption">Road trip through Tennessee</div>
+          </div>
+        </div>
+      </div>
+      <button class="gallery-nav gallery-next"><i class="fas fa-chevron-right"></i></button>
+      
+      <div class="gallery-controls">
+        <div class="gallery-dot active"></div>
+        <div class="gallery-dot"></div>
+        <div class="gallery-dot"></div>
+        <div class="gallery-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Travel USA</div>
+      <p class="footer-text">This experience transformed my perspective on cultural exchange and professional development. The skills I gained during my time in Tennessee continue to shape my career journey.</p>
+      
+      <div class="social-icons">
+        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+      </div>
+      
+      <p class="copyright">© 2023 My Work & Travel USA Experience. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    
+    document.querySelectorAll('.section-image, .section-text').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Gallery slider functionality
+    const galleryTrack = document.querySelector('.gallery-track');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const galleryDots = document.querySelectorAll('.gallery-dot');
+    const prevBtn = document.querySelector('.gallery-prev');
+    const nextBtn = document.querySelector('.gallery-next');
+    let currentIndex = 0;
+    const itemCount = galleryItems.length;
+    
+    // Update gallery position
+    function updateGallery() {
+      galleryTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+      
+      // Update active classes
+      galleryItems.forEach((item, index) => {
+        item.classList.toggle('active', index === currentIndex);
+      });
+      
+      galleryDots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+    }
+    
+    // Next slide
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % itemCount;
+      updateGallery();
+    }
+    
+    // Previous slide
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + itemCount) % itemCount;
+      updateGallery();
+    }
+    
+    // Dot navigation
+    galleryDots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentIndex = index;
+        updateGallery();
+      });
+    });
+    
+    // Button events
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+    
+    // Auto slide
+    const autoSlideInterval = 5000;
+    let slideInterval = setInterval(nextSlide, autoSlideInterval);
+    
+    // Pause auto slide on interaction
+    const galleryContainer = document.querySelector('.gallery-container');
+    galleryContainer.addEventListener('mouseenter', () => {
+      clearInterval(slideInterval);
+    });
+    
+    galleryContainer.addEventListener('mouseleave', () => {
+      slideInterval = setInterval(nextSlide, autoSlideInterval);
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+    
+    // Parallax effect for hero video
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      document.querySelector('.hero-video').style.transform = `translateY(${scrolled * 0.4}px)`;
+    });
+    
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

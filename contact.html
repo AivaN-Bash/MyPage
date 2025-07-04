@@ -1,414 +1,880 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Phawat</title>
-  <!-- External CSS and Confetti Library -->
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phawat Tanajiranon | Cosmic Contact</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <style>
     :root {
-      --background-color: #ffffff;
-      --text-color: #232f3e;
-      --header-bg: #232f3e;
-      --nav-bg: #37475a;
-      --accent-color: #ff9900;
-      --card-bg: #ffffff;
-      --input-bg: #ffffff;
-      --input-text: #232f3e;
+      --cosmic-dark: #0a0e17;
+      --cosmic-darker: #070a12;
+      --cosmic-blue: #1a2a6c;
+      --cosmic-purple: #6a11cb;
+      --cosmic-teal: #00d4ff;
+      --cosmic-accent: #ffcc00;
+      --text-light: #e0e0e0;
+      --text-lighter: #ffffff;
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .dark-mode {
-      --background-color: #1a1a1a;
-      --text-color: #ffffff;
-      --header-bg: #0f0f0f;
-      --nav-bg: #252525;
-      --card-bg: #2d2d2d;
-      --input-bg: #404040;
-      --input-text: #ffffff;
-    }
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Arial, sans-serif;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+    
     body {
-      background-color: var(--background-color);
-      color: var(--text-color);
+      background: var(--cosmic-dark);
+      color: var(--text-light);
+      overflow-x: hidden;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(26, 42, 108, 0.15) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(106, 17, 203, 0.15) 0%, transparent 20%);
+      background-attachment: fixed;
+      padding-top: 80px;
     }
-    /* Header & Navigation (Updated to match index.html) */
-    header {
-      background-color: var(--header-bg);
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: white;
-    }
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: var(--accent-color);
-    }
-    .search-container {
-      flex-grow: 1;
-      margin: 0 20px;
-      position: relative;
-    }
-    .search-container input {
-      width: 100%;
-      padding: 8px 20px;
-      border-radius: 20px;
-      border: 1px solid #ddd;
-    }
-    .mode-toggle {
-      display: flex;
-      align-items: center;
-    }
-    .toggle-switch {
-      position: relative;
-      display: inline-block;
-      width: 60px;
-      height: 34px;
-    }
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .slider {
-      position: absolute;
-      cursor: pointer;
+    
+    .stars {
+      position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: 0.4s;
-      border-radius: 34px;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
     }
-    .slider:before {
+    
+    .star {
       position: absolute;
-      content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: 0.4s;
+      background: white;
       border-radius: 50%;
+      animation: twinkle var(--duration, 4s) infinite var(--delay, 0s);
     }
-    input:checked + .slider {
-      background-color: var(--accent-color);
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
     }
-    input:checked + .slider:before {
-      transform: translateX(26px);
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
-    nav.nav-bar {
-      background-color: var(--nav-bg);
-      padding: 10px 20px;
-      text-align: center;
+    
+    /* Header & Navigation */
+    header {
+      padding: 15px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      background: rgba(10, 14, 23, 0.9);
+      border-bottom: 1px solid rgba(106, 17, 203, 0.2);
     }
-    nav.nav-bar a.nav-link {
-      color: white;
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--cosmic-teal), var(--cosmic-purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      font-size: 1.5rem;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+    
+    nav a {
+      color: var(--text-light);
       text-decoration: none;
-      margin: 0 15px;
+      font-weight: 500;
       position: relative;
-      padding-bottom: 5px;
-      transition: color 0.3s ease;
+      padding: 8px 0;
+      transition: var(--transition);
+      font-size: 1.1rem;
     }
-    nav.nav-bar a.nav-link:hover {
-      color: var(--accent-color);
-    }
-    nav.nav-bar a.nav-link::after {
+    
+    nav a::after {
       content: '';
       position: absolute;
-      width: 100%;
-      height: 2px;
-      background: var(--accent-color);
       bottom: 0;
       left: 0;
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.3s ease;
+      width: 0;
+      height: 2px;
+      background: var(--cosmic-teal);
+      transition: var(--transition);
     }
-    nav.nav-bar a.nav-link:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
+    
+    nav a:hover, nav a.active {
+      color: var(--text-lighter);
     }
-    /* Contact Page Styles */
-    .profile-container {
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 20px;
+    
+    nav a:hover::after, nav a.active::after {
+      width: 100%;
     }
-    .contact-form {
+    
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    
+    /* Floating Planets */
+    .planet {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(1px);
+      z-index: 1;
+    }
+    
+    .planet-1 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle at 30% 30%, var(--cosmic-purple), transparent 70%);
+      top: 20%;
+      right: 10%;
+      opacity: 0.3;
+      animation: float 20s infinite linear;
+    }
+    
+    .planet-2 {
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle at 30% 30%, var(--cosmic-teal), transparent 70%);
+      bottom: 20%;
+      left: 10%;
+      opacity: 0.2;
+      animation: float 25s infinite linear reverse;
+    }
+    
+    @keyframes float {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(20px, -20px) rotate(90deg); }
+      50% { transform: translate(0, -40px) rotate(180deg); }
+      75% { transform: translate(-20px, -20px) rotate(270deg); }
+      100% { transform: translate(0, 0) rotate(360deg); }
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 0;
       position: relative;
       overflow: hidden;
+      text-align: center;
     }
+    
+    .hero-content {
+      max-width: 800px;
+      z-index: 2;
+      margin: 0 auto;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      background: linear-gradient(45deg, var(--text-lighter), var(--cosmic-teal));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      max-width: 600px;
+      opacity: 0.9;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Contact Section */
+    .contact-section {
+      padding: 80px 0;
+      position: relative;
+    }
+    
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    
+    .contact-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 25px;
+      background: rgba(26, 42, 108, 0.2);
+      border-radius: 15px;
+      border: 1px solid rgba(106, 17, 203, 0.2);
+      transition: var(--transition);
+    }
+    
+    .contact-item:hover {
+      transform: translateY(-10px);
+      border-color: var(--cosmic-teal);
+      background: rgba(26, 42, 108, 0.3);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--cosmic-purple), var(--cosmic-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    .contact-details h4 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      color: var(--text-lighter);
+    }
+    
+    .contact-form {
+      background: rgba(26, 42, 108, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      border: 1px solid rgba(106, 17, 203, 0.2);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .contact-form:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: rgba(0, 212, 255, 0.4);
+    }
+    
     .contact-form::before {
       content: '✉️';
       position: absolute;
       font-size: 200px;
-      opacity: 0.1;
+      opacity: 0.05;
       right: -50px;
       top: -50px;
       z-index: -1;
       animation: rotate 30s linear infinite;
     }
+    
     @keyframes rotate {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
-    .contact-form form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .contact-form input,
-    .contact-form textarea {
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background-color: var(--input-bg);
-      color: var(--input-text);
-    }
-    .form-element {
+    
+    .form-group {
+      margin-bottom: 25px;
       opacity: 0;
       transform: translateY(20px);
       animation: slideUp 0.8s ease forwards;
     }
-    .form-element:nth-child(1) { animation-delay: 0.2s; }
-    .form-element:nth-child(2) { animation-delay: 0.4s; }
-    .form-element:nth-child(3) { animation-delay: 0.6s; }
-    .form-element:nth-child(4) { animation-delay: 0.8s; }
+    
+    .form-group:nth-child(1) { animation-delay: 0.2s; }
+    .form-group:nth-child(2) { animation-delay: 0.4s; }
+    .form-group:nth-child(3) { animation-delay: 0.6s; }
+    .form-group:nth-child(4) { animation-delay: 0.8s; }
+    
     @keyframes slideUp {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
-    .amazon-button {
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--text-lighter);
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(106, 17, 203, 0.3);
+      border-radius: 10px;
+      color: var(--text-light);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--cosmic-teal);
+      background: rgba(0, 212, 255, 0.05);
+      box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
+    }
+    
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .btn {
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(45deg, var(--cosmic-purple), var(--cosmic-blue));
+      color: white;
+      box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
       position: relative;
       overflow: hidden;
-      transition: all 0.3s ease;
     }
-    .amazon-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 5px 15px rgba(255, 153, 0, 0.4);
+    
+    .btn-primary:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(106, 17, 203, 0.4);
     }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: rotate(45deg);
+      transition: all 0.5s ease;
+      opacity: 0;
+    }
+    
+    .btn-primary:hover::before {
+      opacity: 1;
+      animation: shine 1.5s ease infinite;
+    }
+    
+    @keyframes shine {
+      0% { transform: rotate(45deg) translateX(-100%); }
+      100% { transform: rotate(45deg) translateX(100%); }
+    }
+    
+    /* Success Message */
     .success-message {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: #4CAF50;
+      background: rgba(10, 14, 23, 0.95);
       color: white;
-      padding: 2rem;
-      border-radius: 10px;
+      padding: 40px;
+      border-radius: 20px;
       text-align: center;
       animation: popIn 0.5s ease;
       z-index: 1000;
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      max-width: 500px;
+      width: 90%;
+      backdrop-filter: blur(10px);
     }
+    
+    .success-message h3 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, var(--cosmic-teal), var(--text-lighter));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .success-message p {
+      margin-bottom: 25px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    .success-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      color: var(--cosmic-teal);
+      animation: float 3s ease-in-out infinite;
+    }
+    
     @keyframes popIn {
       0% { transform: translate(-50%, -50%) scale(0); }
       90% { transform: translate(-50%, -50%) scale(1.1); }
       100% { transform: translate(-50%, -50%) scale(1); }
     }
-    /* Floating Elements */
-    .floating-envelope {
-      font-size: 4rem;
-      text-align: center;
-      margin: 2rem 0;
-      animation: float 3s ease-in-out infinite;
-    }
+    
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-20px); }
     }
-    .floating-shapes {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .floating-shapes div {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: rgba(255, 153, 0, 0.3);
-      border-radius: 50%;
-      animation: float 3s infinite ease-in-out;
-    }
-    /* Fireworks */
-    @keyframes fireworks {
-      0% { transform: translate(0,0) scale(0); opacity: 1; }
-      100% { transform: translate(var(--x), var(--y)) scale(1); opacity: 0; }
-    }
-    .firework {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      background: #ff9900;
-      border-radius: 50%;
-      animation: fireworks 1s ease-out;
-      pointer-events: none;
-    }
+    
     /* Footer */
-    .footer {
-      background-color: var(--header-bg);
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 50px;
+    footer {
+      background: var(--cosmic-darker);
+      padding: 60px 0 30px;
+      border-top: 1px solid rgba(106, 17, 203, 0.2);
     }
-    .footer a.nav-link {
-      margin: 0 10px;
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .footer-col h4 {
+      font-size: 1.4rem;
+      margin-bottom: 25px;
+      color: var(--text-lighter);
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    .footer-col h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--cosmic-purple), var(--cosmic-teal));
+    }
+    
+    .footer-col p {
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .social-links a {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--text-light);
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      background: linear-gradient(45deg, var(--cosmic-purple), var(--cosmic-blue));
       color: white;
-      transition: color 0.3s ease;
+      transform: translateY(-5px);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 15px;
+    }
+    
+    .footer-links a {
+      color: var(--text-light);
       text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .footer a.nav-link:hover {
-      color: var(--accent-color);
+    
+    .footer-links a:hover {
+      color: var(--cosmic-teal);
+      transform: translateX(5px);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(106, 17, 203, 0.2);
+      opacity: 0.7;
+    }
+    
+    /* Responsive */
+    @media (max-width: 992px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .mobile-toggle {
+        display: block;
+      }
+      
+      nav ul {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--cosmic-darker);
+        flex-direction: column;
+        align-items: center;
+        padding: 100px 20px 20px;
+        gap: 25px;
+        transition: var(--transition);
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+      }
+      
+      nav ul.active {
+        left: 0;
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .planet-1,
+      .planet-2 {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+      
+      .contact-form {
+        padding: 25px;
+      }
+      
+      .contact-item {
+        padding: 20px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Background Elements -->
+  <div class="stars" id="stars"></div>
+  <div class="planet planet-1"></div>
+  <div class="planet planet-2"></div>
+  
   <!-- Header -->
   <header>
-    <div class="logo">Phawat</div>
-    <div class="search-container">
-      <input type="text" id="search-input" placeholder="Search projects..." autocomplete="off" />
-    </div>
-    <div class="mode-toggle">
-      <label class="toggle-switch">
-        <input type="checkbox" id="mode-toggle" />
-        <span class="slider"></span>
-      </label>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-rocket"></i>
+          <span>Phawat</span>
+        </div>
+        
+        <button class="mobile-toggle" id="mobileToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav>
+          <ul id="navMenu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="#" class="active">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </header>
-
-  <!-- Navigation -->
-  <nav class="nav-bar">
-    <a href="index.html" class="nav-link">My Profile</a>
-    <a href="skills.html" class="nav-link">Skills</a>
-    <a href="contact.html" class="nav-link">Contact</a>
-  </nav>
-
-  <!-- Floating Elements -->
-  <div class="floating-envelope">📨</div>
-  <div class="floating-shapes"></div>
-
-  <!-- Main Content -->
-  <div class="profile-container">
-    <h2 style="text-align: center; animation: slideUp 0.8s ease;">Contact Me</h2>
-    <div class="contact-form">
-      <form id="contactForm" action="https://formspree.io/f/xjkgwgvz" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required class="form-element" />
-        <input type="email" name="email" placeholder="Your Email" required class="form-element" />
-        <textarea name="message" placeholder="Your Message" rows="5" required class="form-element"></textarea>
-        <button type="submit" class="amazon-button form-element">Send Message 🚀</button>
-      </form>
+  
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Connect Across the Cosmos</h1>
+        <p>Have a project idea or want to collaborate? Send me a message through the cosmic void and I'll get back to you as soon as I return from my space travels!</p>
+      </div>
     </div>
-  </div>
-
+  </section>
+  
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-container">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Email</h4>
+              <p>phawat@cosmicdev.com</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Phone</h4>
+              <p>+66 12 345 6789</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Location</h4>
+              <p>Bangkok, Thailand</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-globe-asia"></i>
+            </div>
+            <div class="contact-details">
+              <h4>Social Media</h4>
+              <p>Connect with me across the galaxies</p>
+              <div class="social-links">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-dribbble"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contact-form">
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" placeholder="Enter your name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Your Email</label>
+              <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" placeholder="Enter subject">
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Your Message</label>
+              <textarea id="message" placeholder="Enter your message" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-paper-plane"></i> Send Cosmic Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
   <!-- Success Message -->
   <div class="success-message">
-    <h3>Message Sent! 🚀</h3>
-    <p>Your message is on its way to me!</p>
-    <div style="font-size: 3rem;">🎉</div>
+    <div class="success-icon">🚀</div>
+    <h3>Message Sent Successfully!</h3>
+    <p>Your cosmic message has been transmitted through the stars. I'll respond as soon as I return from my space exploration!</p>
+    <button class="btn btn-primary" onclick="closeSuccess()">
+      <i class="fas fa-check"></i> Continue Exploring
+    </button>
   </div>
-
+  
   <!-- Footer -->
-  <footer class="footer">
-    <p>© Phawat Tanajiranon ABAC Student.</p>
-    <div style="margin-top: 10px;">
-      <a href="#" class="nav-link">Privacy Policy</a>
-      <a href="#" class="nav-link">Terms of Service</a>
-      <a href="index.html" class="nav-link">About Me</a>
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h4>Phawat</h4>
+          <p>Full Stack Developer passionate about creating innovative web solutions that push the boundaries of technology.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-dribbble"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+            <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> About</a></li>
+            <li><a href="index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+            <li><a href="skills.html"><i class="fas fa-chevron-right"></i> Skills</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Web Development</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> App Development</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> UI/UX Design</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> API Integration</a></li>
+            <li><a href="#"><i class="fas fa-chevron-right"></i> Technical Consulting</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>&copy; 2023 Phawat Tanajiranon. All Rights Reserved.</p>
+      </div>
     </div>
   </footer>
-
+  
   <script>
-    /* Dark Mode Toggle with Local Storage */
-    const modeToggle = document.getElementById('mode-toggle');
-    const body = document.body;
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      body.classList.add(savedTheme);
-      modeToggle.checked = savedTheme === 'dark-mode';
+    // Create stars
+    const starsContainer = document.getElementById('stars');
+    const starCount = 150;
+    
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      
+      // Random position
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      
+      // Random size
+      const size = Math.random() * 3;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      
+      // Random animation
+      star.style.setProperty('--duration', `${Math.random() * 5 + 3}s`);
+      star.style.setProperty('--delay', `${Math.random() * 5}s`);
+      
+      starsContainer.appendChild(star);
     }
-    modeToggle.addEventListener('change', () => {
-      if (modeToggle.checked) {
-        body.classList.add('dark-mode');
-        localStorage.setItem('theme', 'dark-mode');
-      } else {
-        body.classList.remove('dark-mode');
-        localStorage.setItem('theme', 'light-mode');
-      }
+    
+    // Mobile menu toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    mobileToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      mobileToggle.innerHTML = navMenu.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
     });
-
-    /* Create Floating Shapes */
-    function createFloatingShapes() {
-      const container = document.querySelector('.floating-shapes');
-      for (let i = 0; i < 15; i++) {
-        const shape = document.createElement('div');
-        shape.style.left = Math.random() * 100 + 'vw';
-        shape.style.top = Math.random() * 100 + 'vh';
-        shape.style.animationDelay = Math.random() * 2 + 's';
-        shape.style.width = shape.style.height = Math.random() * 20 + 10 + 'px';
-        container.appendChild(shape);
-      }
-    }
-    createFloatingShapes();
-
-    /* Fireworks Function */
-    function createFireworks(x, y) {
-      for (let i = 0; i < 50; i++) {
-        const firework = document.createElement('div');
-        firework.className = 'firework';
-        firework.style.left = x + 'px';
-        firework.style.top = y + 'px';
-        firework.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
-        // Random movement for each firework
-        const angle = Math.random() * Math.PI * 2;
-        const velocity = Math.random() * 10;
-        firework.style.setProperty('--x', `${Math.cos(angle) * velocity}px`);
-        firework.style.setProperty('--y', `${Math.sin(angle) * velocity}px`);
-        document.body.appendChild(firework);
-        setTimeout(() => firework.remove(), 1000);
-      }
-    }
-
-    /* Form Submission with Animation */
+    
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          if (navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        }
+      });
+    });
+    
+    // Form submission
     document.getElementById('contactForm').addEventListener('submit', (e) => {
       e.preventDefault();
+      
+      // Show success message
       document.querySelector('.success-message').style.display = 'block';
+      
+      // Create confetti effect
       try {
         confetti({
-          particleCount: 100,
-          spread: 70,
+          particleCount: 200,
+          spread: 100,
           origin: { y: 0.6 },
-          colors: ['#ff9900', '#ffffff', '#4CAF50']
+          colors: ['#ff9900', '#00d4ff', '#6a11cb', '#ffffff']
         });
       } catch (error) {
-        const rect = e.target.getBoundingClientRect();
-        createFireworks(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        console.log('Confetti library not loaded');
       }
-      setTimeout(() => {
-        e.target.submit();
-      }, 2000);
+      
+      // Reset form
+      document.getElementById('contactForm').reset();
     });
-
-    /* Hover Effects on Form Elements */
+    
+    // Close success message
+    function closeSuccess() {
+      document.querySelector('.success-message').style.display = 'none';
+    }
+    
+    // Input hover effects
     document.querySelectorAll('input, textarea').forEach(element => {
       element.addEventListener('mouseenter', () => {
         element.style.transform = 'translateY(-3px)';
@@ -419,12 +885,6 @@
         element.style.boxShadow = 'none';
       });
     });
-
-    /* Random Color Change for Envelope */
-    const envelope = document.querySelector('.floating-envelope');
-    setInterval(() => {
-      envelope.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
-    }, 3000);
   </script>
 </body>
 </html>

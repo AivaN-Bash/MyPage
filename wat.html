@@ -3,183 +3,269 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Work & Travel USA Experience</title>
+  <title>Cosmic Journey: Work & Travel USA</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Base Styles */
+    /* Cosmic Theme Variables */
+    :root {
+      --cosmic-dark: #0a0e17;
+      --cosmic-darker: #070a12;
+      --cosmic-blue: #1a2a6c;
+      --cosmic-purple: #6a11cb;
+      --cosmic-teal: #00d4ff;
+      --cosmic-accent: #ffcc00;
+      --text-light: #e0e0e0;
+      --text-lighter: #ffffff;
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-    
-    html {
-      scroll-behavior: smooth;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
     body {
-      background: linear-gradient(135deg, #0f1a2d, #1d2b40);
-      color: #fff;
+      background: var(--cosmic-dark);
+      color: var(--text-light);
       overflow-x: hidden;
-      line-height: 1.7;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(26, 42, 108, 0.15) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(106, 17, 203, 0.15) 0%, transparent 20%);
+      background-attachment: fixed;
+      padding-top: 80px;
     }
     
-    /* Navigation */
-    .nav-bar {
-      position: sticky;
+    .stars {
+      position: fixed;
       top: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(15px);
-      padding: 1.2rem 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle var(--duration, 4s) infinite var(--delay, 0s);
+    }
+    
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+    
+    .container {
       max-width: 1400px;
       margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header & Navigation */
+    header {
+      padding: 15px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
       z-index: 1000;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      transition: all 0.4s ease;
+      backdrop-filter: blur(10px);
+      background: rgba(10, 14, 23, 0.9);
+      border-bottom: 1px solid rgba(106, 17, 203, 0.2);
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     
     .logo {
-      font-size: 2.1rem;
+      font-size: 1.8rem;
       font-weight: 700;
-      background: linear-gradient(45deg, #ff7d7d, #5ed1c9);
+      background: linear-gradient(45deg, var(--cosmic-teal), var(--cosmic-purple));
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      background-clip: text;
+      color: transparent;
       display: flex;
       align-items: center;
       gap: 10px;
     }
     
     .logo i {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
     }
     
-    .nav-links {
+    nav ul {
       display: flex;
-      gap: 2.5rem;
-      align-items: center;
+      list-style: none;
+      gap: 30px;
     }
     
-    .nav-link {
-      color: rgba(255, 255, 255, 0.85);
+    nav a {
+      color: var(--text-light);
       text-decoration: none;
       font-weight: 500;
       position: relative;
-      padding: 0.5rem 0;
-      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      padding: 8px 0;
+      transition: var(--transition);
       font-size: 1.1rem;
     }
     
-    .nav-link::after {
+    nav a::after {
       content: '';
       position: absolute;
       bottom: 0;
       left: 0;
       width: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #ff7d7d, #5ed1c9);
-      transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      height: 2px;
+      background: var(--cosmic-teal);
+      transition: var(--transition);
     }
     
-    .nav-link:hover {
-      color: #fff;
+    nav a:hover, nav a.active {
+      color: var(--text-lighter);
     }
     
-    .nav-link:hover::after {
+    nav a:hover::after, nav a.active::after {
       width: 100%;
+    }
+    
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 1001;
     }
     
     /* Hero Section */
     .hero {
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: center;
+      padding: 100px 0;
       position: relative;
       overflow: hidden;
-    }
-    
-    .hero-video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.5;
-      z-index: -1;
-      transform: translateZ(0);
+      text-align: center;
     }
     
     .hero-content {
-      text-align: center;
       max-width: 900px;
-      padding: 0 2rem;
-      opacity: 0;
-      transform: translateY(50px);
-      animation: fadeUp 1.2s ease forwards 0.5s;
-    }
-    
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      z-index: 2;
+      margin: 0 auto;
+      padding: 0 20px;
     }
     
     .hero h1 {
-      font-size: 4.5rem;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(90deg, #ff7d7d, #5ed1c9);
+      font-size: 4rem;
+      margin-bottom: 25px;
+      line-height: 1.2;
+      background: linear-gradient(45deg, var(--text-lighter), var(--cosmic-teal));
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
       text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      line-height: 1.1;
     }
     
     .hero p {
-      font-size: 1.5rem;
-      margin-bottom: 2.5rem;
-      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.4rem;
+      margin-bottom: 40px;
       max-width: 700px;
-      margin: 0 auto 2.5rem;
+      opacity: 0.9;
+      margin-left: auto;
+      margin-right: auto;
     }
     
-    .scroll-down {
-      position: absolute;
-      bottom: 40px;
-      left: 50%;
-      transform: translateX(-50%);
+    .hero-btns {
       display: flex;
-      flex-direction: column;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .btn {
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
       align-items: center;
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 1rem;
-      animation: bounce 2s infinite;
+      gap: 10px;
+      border: none;
+      cursor: pointer;
     }
     
-    .scroll-down i {
-      font-size: 2rem;
-      margin-bottom: 5px;
+    .btn-primary {
+      background: linear-gradient(45deg, var(--cosmic-purple), var(--cosmic-blue));
+      color: white;
+      box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
     }
     
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
-      40% {transform: translateX(-50%) translateY(-20px);}
-      60% {transform: translateX(-50%) translateY(-10px);}
+    .btn-primary:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(106, 17, 203, 0.4);
     }
     
-    /* Experience Section */
+    .btn-outline {
+      border: 2px solid var(--cosmic-teal);
+      color: var(--cosmic-teal);
+      background: transparent;
+    }
+    
+    .btn-outline:hover {
+      background: rgba(0, 212, 255, 0.1);
+      transform: translateY(-5px);
+    }
+    
+    /* Floating Planets */
+    .planet {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(1px);
+      z-index: 1;
+    }
+    
+    .planet-1 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle at 30% 30%, var(--cosmic-purple), transparent 70%);
+      top: 20%;
+      right: 10%;
+      opacity: 0.3;
+      animation: float 20s infinite linear;
+    }
+    
+    .planet-2 {
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle at 30% 30%, var(--cosmic-teal), transparent 70%);
+      bottom: 20%;
+      left: 10%;
+      opacity: 0.2;
+      animation: float 25s infinite linear reverse;
+    }
+    
+    @keyframes float {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(20px, -20px) rotate(90deg); }
+      50% { transform: translate(0, -40px) rotate(180deg); }
+      75% { transform: translate(-20px, -20px) rotate(270deg); }
+      100% { transform: translate(0, 0) rotate(360deg); }
+    }
+    
+    /* Experience Sections */
     .experience-section {
-      min-height: 100vh;
-      padding: 6rem 2rem;
+      padding: 120px 0;
       position: relative;
-      overflow: hidden;
     }
     
     .section-content {
@@ -187,7 +273,7 @@
       margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 5rem;
+      gap: 60px;
       align-items: center;
     }
     
@@ -200,6 +286,7 @@
       transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
       height: 600px;
+      border: 1px solid rgba(106, 17, 203, 0.2);
     }
     
     .section-image.visible {
@@ -230,18 +317,19 @@
     }
     
     .section-text h2 {
-      font-size: 3.2rem;
-      margin-bottom: 2rem;
-      background: linear-gradient(90deg, #ff7d7d, #5ed1c9);
+      font-size: 2.8rem;
+      margin-bottom: 25px;
+      background: linear-gradient(90deg, var(--cosmic-teal), var(--text-lighter));
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
       line-height: 1.1;
     }
     
     .section-text p {
       font-size: 1.25rem;
       margin-bottom: 1.8rem;
-      color: rgba(255, 255, 255, 0.85);
+      color: rgba(224, 224, 224, 0.85);
     }
     
     .experience-list {
@@ -254,7 +342,7 @@
       padding-left: 2.5rem;
       margin-bottom: 1.2rem;
       font-size: 1.2rem;
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(224, 224, 224, 0.9);
     }
     
     .experience-list li::before {
@@ -262,27 +350,28 @@
       position: absolute;
       left: 0;
       top: 0;
-      color: #5ed1c9;
+      color: var(--cosmic-teal);
       font-size: 1.4rem;
       font-weight: bold;
     }
     
     /* Gallery Section */
     .gallery-section {
-      padding: 6rem 2rem;
+      padding: 120px 0;
       position: relative;
-      background: rgba(0, 0, 0, 0.15);
+      background: rgba(10, 14, 23, 0.7);
     }
     
     .section-title {
       text-align: center;
-      margin-bottom: 4rem;
-      font-size: 3rem;
-      background: linear-gradient(90deg, #ff7d7d, #5ed1c9);
+      margin-bottom: 60px;
+      font-size: 2.8rem;
+      background: linear-gradient(90deg, var(--cosmic-teal), var(--text-lighter));
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
       position: relative;
-      padding-bottom: 1.5rem;
+      padding-bottom: 20px;
     }
     
     .section-title::after {
@@ -293,7 +382,7 @@
       transform: translateX(-50%);
       width: 120px;
       height: 4px;
-      background: linear-gradient(90deg, #ff7d7d, #5ed1c9);
+      background: linear-gradient(90deg, var(--cosmic-purple), var(--cosmic-teal));
       border-radius: 2px;
     }
     
@@ -309,6 +398,7 @@
       border-radius: 25px;
       height: 600px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(106, 17, 203, 0.2);
     }
     
     .gallery-track {
@@ -366,7 +456,7 @@
     }
     
     .gallery-dot.active {
-      background: #ff7d7d;
+      background: var(--cosmic-teal);
       transform: scale(1.2);
     }
     
@@ -376,7 +466,7 @@
       transform: translateY(-50%);
       background: rgba(0, 0, 0, 0.6);
       border: none;
-      color: #fff;
+      color: var(--text-lighter);
       font-size: 2.2rem;
       width: 70px;
       height: 70px;
@@ -388,12 +478,14 @@
       border-radius: 50%;
       transition: all 0.3s ease;
       opacity: 0.7;
+      border: 1px solid rgba(106, 17, 203, 0.3);
     }
     
     .gallery-nav:hover {
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(26, 42, 108, 0.8);
       opacity: 1;
       transform: translateY(-50%) scale(1.1);
+      color: var(--cosmic-teal);
     }
     
     .gallery-prev {
@@ -406,27 +498,30 @@
     
     /* Footer */
     footer {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 4rem 2rem;
-      text-align: center;
+      background: var(--cosmic-darker);
+      padding: 80px 0 40px;
+      border-top: 1px solid rgba(106, 17, 203, 0.2);
+      position: relative;
     }
     
     .footer-content {
       max-width: 1200px;
       margin: 0 auto;
+      text-align: center;
     }
     
     .footer-logo {
       font-size: 2.5rem;
       font-weight: 700;
-      background: linear-gradient(45deg, #ff7d7d, #5ed1c9);
+      background: linear-gradient(45deg, var(--cosmic-teal), var(--cosmic-purple));
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
       margin-bottom: 1.5rem;
     }
     
     .footer-text {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(224, 224, 224, 0.7);
       font-size: 1.2rem;
       max-width: 700px;
       margin: 0 auto 2.5rem;
@@ -444,22 +539,23 @@
       width: 60px;
       height: 60px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.8rem;
-      color: white;
-      transition: all 0.3s ease;
+      color: var(--text-light);
+      transition: var(--transition);
     }
     
     .social-icon:hover {
-      background: linear-gradient(45deg, #ff7d7d, #5ed1c9);
+      background: linear-gradient(45deg, var(--cosmic-purple), var(--cosmic-blue));
+      color: white;
       transform: translateY(-5px);
     }
     
     .copyright {
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(224, 224, 224, 0.5);
       font-size: 1.1rem;
       margin-top: 2rem;
     }
@@ -475,15 +571,16 @@
     }
     
     /* Responsive Design */
-    @media (max-width: 992px) {
+    @media (max-width: 1200px) {
       .section-content {
         grid-template-columns: 1fr;
         gap: 4rem;
       }
       
       .section-image {
-        max-width: 600px;
+        max-width: 700px;
         margin: 0 auto;
+        height: 500px;
       }
       
       .gallery-container {
@@ -491,25 +588,13 @@
       }
     }
     
-    @media (max-width: 768px) {
-      .nav-bar {
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 1.5rem 2rem;
-      }
-      
-      .nav-links {
-        gap: 1.2rem;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      
+    @media (max-width: 992px) {
       .hero h1 {
         font-size: 3.2rem;
       }
       
       .hero p {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
       }
       
       .section-text h2 {
@@ -523,6 +608,40 @@
       .gallery-container {
         height: 400px;
       }
+    }
+    
+    @media (max-width: 768px) {
+      .mobile-toggle {
+        display: block;
+      }
+      
+      nav ul {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background: var(--cosmic-darker);
+        flex-direction: column;
+        align-items: center;
+        padding: 100px 20px 20px;
+        gap: 25px;
+        transition: var(--transition);
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+      }
+      
+      nav ul.active {
+        left: 0;
+      }
+      
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      
+      .planet-1,
+      .planet-2 {
+        display: none;
+      }
       
       .gallery-nav {
         width: 50px;
@@ -534,15 +653,15 @@
         font-size: 1.2rem;
         padding: 1.5rem;
       }
+      
+      .section-image {
+        height: 400px;
+      }
     }
     
-    @media (max-width: 480px) {
+    @media (max-width: 576px) {
       .hero h1 {
-        font-size: 2.5rem;
-      }
-      
-      .hero p {
-        font-size: 1.1rem;
+        font-size: 2.3rem;
       }
       
       .section-text h2 {
@@ -566,125 +685,222 @@
         height: 40px;
         font-size: 1.5rem;
       }
+      
+      .social-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <nav class="nav-bar">
-    <a href="index.html" class="logo">
-      <i class="fas fa-passport"></i> Travel USA
-    </a>
-    <div class="nav-links">
-      <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
-      <a href="skills.html" class="nav-link"><i class="fas fa-code"></i> Skills</a>
-      <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
-    </div>
-  </nav>
-
-  <section class="hero">
-    <video class="hero-video" autoplay muted loop playsinline>
-      <source src="https://assets.mixkit.co/videos/preview/mixkit-usa-flag-waving-in-the-wind-1929-large.mp4" type="video/mp4">
-    </video>
-    <div class="hero-content">
-      <h1>American Dream Journey</h1>
-      <p>My transformative Work & Travel experience in the heart of Tennessee</p>
-    </div>
-    <div class="scroll-down">
-      <i class="fas fa-chevron-down"></i>
-      <span>Scroll to explore</span>
-    </div>
-  </section>
-
-  <section class="experience-section">
-    <div class="section-content">
-      <div class="section-image floating-element">
-        <img src="images/dollywood-work.jpg" alt="Dollywood Experience">
-      </div>
-      <div class="section-text">
-        <h2>The Magic of Dollywood</h2>
-        <p>Working at Dollywood was more than just a job - it was an immersion into American culture. As an international team member, I helped create unforgettable experiences for visitors from around the world.</p>
-        <ul class="experience-list">
-          <li>Customer service excellence in a high-volume environment</li>
-          <li>Cross-cultural communication with diverse teams</li>
-          <li>Leadership in coordinating daily operations</li>
-          <li>Problem-solving during peak visitor seasons</li>
-          <li>Adapting to American work culture and expectations</li>
-        </ul>
+  <!-- Background Elements -->
+  <div class="stars" id="stars"></div>
+  <div class="planet planet-1"></div>
+  <div class="planet planet-2"></div>
+  
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-passport"></i>
+          <span>Cosmic Journey</span>
+        </div>
+        
+        <button class="mobile-toggle" id="mobileToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        
+        <nav>
+          <ul id="navMenu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+          </ul>
+        </nav>
       </div>
     </div>
-  </section>
-
-  <section class="experience-section">
-    <div class="section-content">
-      <div class="section-text">
-        <h2>Thai Flavors in Tennessee</h2>
-        <p>Bringing authentic Thai culinary traditions to the Smoky Mountains was a journey of cultural exchange. Working at "Siam Spice" restaurant allowed me to share my heritage while learning American hospitality.</p>
-        <ul class="experience-list">
-          <li>Food preparation & service in a traditional setting</li>
-          <li>Cultural ambassadorship through cuisine</li>
-          <li>Inventory management and supply ordering</li>
-          <li>Menu adaptation for American palates</li>
-          <li>Training new staff in authentic techniques</li>
-        </ul>
-      </div>
-      <div class="section-image floating-element">
-        <img src="images/restaurant-work.jpg" alt="Restaurant Experience">
-      </div>
-    </div>
-  </section>
-
-  <section class="gallery-section">
-    <h2 class="section-title">Memorable Moments</h2>
-    <div class="gallery-slider">
-      <button class="gallery-nav gallery-prev"><i class="fas fa-chevron-left"></i></button>
-      <div class="gallery-container">
-        <div class="gallery-track">
-          <div class="gallery-item active">
-            <img src="images/dollywood-work.jpg" alt="Team photo">
-            <div class="gallery-caption">Team celebration at Dollywood</div>
-          </div>
-          <div class="gallery-item">
-            <img src="images/WAT.jpg" alt="Restaurant work">
-            <div class="gallery-caption">Preparing traditional Thai dishes</div>
-          </div>
-          <div class="gallery-item">
-            <img src="images/gallery1.jpg" alt="Cultural exchange">
-            <div class="gallery-caption">Exploring the Great Smoky Mountains</div>
-          </div>
-          <div class="gallery-item">
-            <img src="images/gallery2.jpg" alt="Travel experience">
-            <div class="gallery-caption">Road trip through Tennessee</div>
-          </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Cosmic Journey: Work & Travel USA</h1>
+        <p>My interstellar adventure through the cultural cosmos of America - a transformative journey bridging Thai heritage and American experiences</p>
+        <div class="hero-btns">
+          <a href="#dollywood" class="btn btn-primary">
+            <i class="fas fa-mountain"></i> Dollywood Experience
+          </a>
+          <a href="#thai-flavors" class="btn btn-outline">
+            <i class="fas fa-utensils"></i> Thai Flavors Journey
+          </a>
         </div>
       </div>
-      <button class="gallery-nav gallery-next"><i class="fas fa-chevron-right"></i></button>
-      
-      <div class="gallery-controls">
-        <div class="gallery-dot active"></div>
-        <div class="gallery-dot"></div>
-        <div class="gallery-dot"></div>
-        <div class="gallery-dot"></div>
+    </div>
+  </section>
+  
+  <!-- Dollywood Experience -->
+  <section class="experience-section" id="dollywood">
+    <div class="container">
+      <div class="section-content">
+        <div class="section-image floating-element">
+          <img src="images/dollywood-work.jpg" alt="Dollywood Experience">
+        </div>
+        <div class="section-text">
+          <h2>The Magic of Dollywood</h2>
+          <p>Working at Dollywood was more than just a job - it was an immersion into American culture. As an international team member, I helped create unforgettable experiences for visitors from around the world.</p>
+          <ul class="experience-list">
+            <li>Customer service excellence in a high-volume environment</li>
+            <li>Cross-cultural communication with diverse teams</li>
+            <li>Leadership in coordinating daily operations</li>
+            <li>Problem-solving during peak visitor seasons</li>
+            <li>Adapting to American work culture and expectations</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
-
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logo">Travel USA</div>
-      <p class="footer-text">This experience transformed my perspective on cultural exchange and professional development. The skills I gained during my time in Tennessee continue to shape my career journey.</p>
-      
-      <div class="social-icons">
-        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+  
+  <!-- Thai Flavors Experience -->
+  <section class="experience-section" id="thai-flavors">
+    <div class="container">
+      <div class="section-content">
+        <div class="section-text">
+          <h2>Thai Flavors in Tennessee</h2>
+          <p>Bringing authentic Thai culinary traditions to the Smoky Mountains was a journey of cultural exchange. Working at "Siam Spice" restaurant allowed me to share my heritage while learning American hospitality.</p>
+          <ul class="experience-list">
+            <li>Food preparation & service in a traditional setting</li>
+            <li>Cultural ambassadorship through cuisine</li>
+            <li>Inventory management and supply ordering</li>
+            <li>Menu adaptation for American palates</li>
+            <li>Training new staff in authentic techniques</li>
+          </ul>
+        </div>
+        <div class="section-image floating-element">
+          <img src="images/restaurant-work.jpg" alt="Restaurant Experience">
+        </div>
       </div>
-      
-      <p class="copyright">© 2023 My Work & Travel USA Experience. All rights reserved.</p>
+    </div>
+  </section>
+  
+  <!-- Gallery Section -->
+  <section class="gallery-section">
+    <div class="container">
+      <h2 class="section-title">Cosmic Memories Gallery</h2>
+      <div class="gallery-slider">
+        <button class="gallery-nav gallery-prev"><i class="fas fa-chevron-left"></i></button>
+        <div class="gallery-container">
+          <div class="gallery-track">
+            <div class="gallery-item active">
+              <img src="images/dollywood-work.jpg" alt="Team photo">
+              <div class="gallery-caption">Team celebration at Dollywood</div>
+            </div>
+            <div class="gallery-item">
+              <img src="images/WAT.jpg" alt="Restaurant work">
+              <div class="gallery-caption">Preparing traditional Thai dishes</div>
+            </div>
+            <div class="gallery-item">
+              <img src="images/gallery1.jpg" alt="Cultural exchange">
+              <div class="gallery-caption">Exploring the Great Smoky Mountains</div>
+            </div>
+            <div class="gallery-item">
+              <img src="images/gallery2.jpg" alt="Travel experience">
+              <div class="gallery-caption">Road trip through Tennessee</div>
+            </div>
+          </div>
+        </div>
+        <button class="gallery-nav gallery-next"><i class="fas fa-chevron-right"></i></button>
+        
+        <div class="gallery-controls">
+          <div class="gallery-dot active"></div>
+          <div class="gallery-dot"></div>
+          <div class="gallery-dot"></div>
+          <div class="gallery-dot"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Cosmic Journey</div>
+        <p class="footer-text">This cosmic journey transformed my perspective on cultural exchange and professional development. The skills I gained during my time in Tennessee continue to shape my career path across the universe.</p>
+        
+        <div class="social-icons">
+          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+        </div>
+        
+        <p class="copyright">© 2023 Cosmic Journey: Work & Travel USA Experience. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 
   <script>
+    // Create stars
+    const starsContainer = document.getElementById('stars');
+    const starCount = 150;
+    
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      
+      // Random position
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      
+      // Random size
+      const size = Math.random() * 3;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      
+      // Random animation
+      star.style.setProperty('--duration', `${Math.random() * 5 + 3}s`);
+      star.style.setProperty('--delay', `${Math.random() * 5}s`);
+      
+      starsContainer.appendChild(star);
+    }
+    
+    // Mobile menu toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    mobileToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      mobileToggle.innerHTML = navMenu.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+    
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          if (navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        }
+      });
+    });
+    
     // Intersection Observer for animations
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
@@ -766,23 +982,13 @@
       if (e.key === 'ArrowLeft') prevSlide();
     });
     
-    // Parallax effect for hero video
+    // Parallax effect for background
     window.addEventListener('scroll', () => {
       const scrolled = window.pageYOffset;
-      document.querySelector('.hero-video').style.transform = `translateY(${scrolled * 0.4}px)`;
-    });
-    
-    // Smooth scrolling for navigation
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          window.scrollTo({
-            top: target.offsetTop,
-            behavior: 'smooth'
-          });
-        }
+      const planets = document.querySelectorAll('.planet');
+      
+      planets.forEach(planet => {
+        planet.style.transform = `translateY(${scrolled * 0.1}px)`;
       });
     });
   </script>

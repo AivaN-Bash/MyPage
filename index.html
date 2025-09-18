@@ -1183,6 +1183,19 @@
         }
       });
     });
+    // Animation on scroll
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.animate');
+      elements.forEach(el => {
+        const position = el.getBoundingClientRect();
+        if (position.top < window.innerHeight - 100) {
+          el.style.opacity = 1;
+        }
+      });
+    };
+    // Initialize
+    window.addEventListener('load', animateOnScroll);
+    window.addEventListener('scroll', animateOnScroll);
   </script>
 </body>
 </html>
